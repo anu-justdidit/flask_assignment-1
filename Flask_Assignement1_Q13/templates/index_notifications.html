@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real-Time Notifications</title>
+    <script src="https://cdn.socket.io/4.3.1/socket.io.min.js"></script>
+    <script>
+        var socket = io();
+
+        socket.on('notification', function(data) {
+            var notification = document.createElement('div');
+            notification.innerHTML = data['message'];
+            document.getElementById('notifications').appendChild(notification);
+        });
+
+        function sendNotification() {
+            socket.emit('trigger_notification');
+        }
+    </script>
+</head>
+<body>
+    <h1>Real-Time Notifications</h1>
+    <button onclick="sendNotification()">Trigger Notification</button>
+    <div id="notifications"></div>
+</body>
+</html>
